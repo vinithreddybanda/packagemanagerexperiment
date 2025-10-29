@@ -13,17 +13,17 @@ pipeline {
         }
             stage('Build Docker Image') {
                 steps {
-                    sh "docker build -t ${DOCKERHUB_USER}/${IMAGE_NAME}:latest ."
+                    bat "docker build -t %DOCKERHUB_USER%/%IMAGE_NAME%:latest ."
                 }
             }
             stage('Login to Docker Hub') {
                 steps {
-                    sh "echo $DOCKERHUB_TOKEN | docker login -u $DOCKERHUB_USER --password-stdin"
+                    bat "echo %DOCKERHUB_TOKEN% | docker login -u %DOCKERHUB_USER% --password-stdin"
                 }
             }
             stage('Push Image to Docker Hub') {
                 steps {
-                    sh "docker push ${DOCKERHUB_USER}/${IMAGE_NAME}:latest"
+                    bat "docker push %DOCKERHUB_USER%/%IMAGE_NAME%:latest"
                 }
             }
     }
